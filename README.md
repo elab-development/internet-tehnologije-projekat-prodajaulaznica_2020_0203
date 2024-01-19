@@ -1,1 +1,2 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/1IMeAlJr)
+Za frontend deo je potrebno u terminalu doci komandom cd do foldera frontend pa prodaja-ulaznica i u terminalu uneti npm dev start
+Za backend deo je potrebno istom komandom doci do foldera backend i uneti npm run dev komandu u terminalu
