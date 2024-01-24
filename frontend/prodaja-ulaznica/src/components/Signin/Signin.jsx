@@ -5,6 +5,77 @@ import "./signin.css";
 import { useCookies } from "react-cookie";
 
 const Signin = () => {
+  const [cookie, setCookie] = useCookies(["login"]);
+  const navigate = useNavigate();
+  const [formValues, setFormValues] = useState({
+    ime: "",
+    prezime: "",
+    email: "",
+    lozinka: "",
+    repeatLozinka: "",
+  });
+  // const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+
+    // const errors = validate({ ...formValues, [name]: value });
+    // setFormErrors({ ...formErrors, [name]: errors[name] });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (cookie.admin !== undefined || cookie.user !== undefined) {
+      alert("Ne mozete se registrovati jer ste vec prijavljeni!");
+      return;
+    }
+    if (formValues.lozinka !== formValues.repeatLozinka) {
+      alert("Password and repeat password have to be same!");
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/korisnik",
+        {
+          ime: formValues.ime,
+          prezime: formValues.prezime,
+          email: formValues.email,
+          lozinka: formValues.lozinka,
+        },
+        {
+          headers: {
+            "Contet-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.data.message !== "User with same email is registered!") {
+        setFormValues({
+          ime: "",
+          prezime: "",
+          email: "",
+          lozinka: "",
+          repeatLozinka: "",
+        });
+        setCookie("user", response.data, {
+          expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+          sameSite: "none",
+          secure: true,
+        });
+        alert("Uspesno ste se registrovali");
+        navigate("/");
+      } else {
+        alert(response.data.message);
+      }
+    } catch (error) {
+      console.error("Error during signin:", error);
+      alert("Neuspesno logovanje, greska!");
+    }
+  };
+
   //   const validate = (values) => {
   //     const errors = {};
   //     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
