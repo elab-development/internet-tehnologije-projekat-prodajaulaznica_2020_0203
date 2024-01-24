@@ -13,6 +13,30 @@ function Navbar() {
 
   return (
     <nav className={`nav ${isOpen ? "open" : ""}`}>
+      <div className="logo">
+        <div className="imageWrapper">
+          <img src={logo}></img>
+        </div>
+        <h4>PSN</h4>
+      </div>
+      <div className="menu">
+        <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
+          <div className={`bar ${isOpen ? "open" : ""}`}></div>
+          <div className={`bar ${isOpen ? "open" : ""}`}></div>
+          <div className={`bar ${isOpen ? "open" : ""}`}></div>
+        </div>
+        <ul className={`menu-list ${isOpen ? "open" : ""}`}>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/events">Events</Link>
+          </li>
+          <li>
+            <Link to="/addevent">Add Event</Link>
+          </li>
+        </ul>
+      </div>
       <div>
         {cookie.admin !== undefined || cookie.user !== undefined ? (
           <button
