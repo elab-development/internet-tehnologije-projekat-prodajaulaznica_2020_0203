@@ -1,0 +1,91 @@
+import React, { useRef, useState } from "react";
+import "./addEvent.css";
+import Navbar from "../Navbar/Navbar";
+import axios from "axios";
+import { useCookies } from "react-cookie";
+import Charts from "./Charts/Charts";
+
+function AddEvent() {
+  return (
+    <div style={{ overflow: "hidden" }}>
+      <Navbar />
+      <div className="dodaj-dogadjaj-form">
+        <h1>New event</h1>
+        <form action="">
+          <div className="form-group">
+            <div className="form-fields">
+              <label htmlFor="naziv">Name</label>
+              <input
+                type="text"
+                name="naziv"
+                id=""
+                value={formValues.naziv}
+                onChange={(e) =>
+                  setFormValues({ ...formValues, naziv: e.target.value })
+                }
+              />
+              <p>{formErrors.naziv}</p>
+            </div>
+            <div className="form-fields">
+              <label htmlFor="tipDogadjaja">Event type</label>
+              <input
+                type="text"
+                name="tipDogadjaja"
+                id=""
+                value={formValues.tipDogadjaja}
+                onChange={(e) =>
+                  setFormValues({ ...formValues, tipDogadjaja: e.target.value })
+                }
+              />
+              <p>{formErrors.tipDogadjaja}</p>
+            </div>
+          </div>
+          <div className="form-fields">
+            <label htmlFor="cena" style={{ fontSize: "1.5rem" }}>
+              Price
+            </label>
+            <input
+              type="number"
+              name="cena"
+              id=""
+              value={formValues.cena}
+              onChange={(e) =>
+                setFormValues({
+                  ...formValues,
+                  cena: e.target.value,
+                })
+              }
+            />
+            <p>{formErrors.cena}</p>
+          </div>
+
+          <div className="form-fields">
+            <label htmlFor="slika" style={{ fontSize: "1.5rem" }}>
+              Image
+            </label>
+            <input
+              type="file"
+              name="slika"
+              id=""
+              onChange={(event) => {
+                setFormValues({
+                  ...formValues,
+                  putanjaSlike: event.target.files[0],
+                });
+              }}
+            />
+            <p>{formErrors.inventarskiBroj}</p>
+          </div>
+
+          <div className="sacuvaj-dogadjaj-btn">
+            <button className="button" onClick={handleSaveEvent} ref={btnDodaj}>
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default AddEvent;
