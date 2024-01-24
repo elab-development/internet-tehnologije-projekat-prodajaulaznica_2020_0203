@@ -25,6 +25,25 @@ function Main() {
             Laudantium natus at facilis labore, quod odio porro id perspiciatis
             eaque ipsam, saepe nam.
           </p>
+          <div>
+            <button
+              className="button"
+              onClick={() => {
+                navigate("/events");
+              }}
+            >
+              See Events!
+            </button>
+
+            <button
+              className="button"
+              onClick={() => {
+                navigate("/addevent");
+              }}
+            >
+              Add Event!
+            </button>
+          </div>
         </div>
         <div className="image">
           <img src="../src/assets/hero-main.jpg"></img>
