@@ -18,6 +18,50 @@ function AddEvent() {
     putanjaSlike: null,
   });
 
+  const handleSaveEvent = async (e) => {
+    e.preventDefault();
+
+    // if (cookie.user !== undefined) {
+    //   alert("User cannot create events!");
+    //   return;
+    // }
+
+    try {
+      const formData = new FormData();
+      formData.append("putanjaSlike", formValues.putanjaSlike);
+      formData.append("naziv", formValues.naziv);
+      formData.append("adminId", formValues.adminId);
+      formData.append("cena", formValues.cena);
+      formData.append("tipDogadjaja", formValues.tipDogadjaja);
+
+      const addedEventResponse = await axios.post(
+        "http://localhost:5000/dogadjaj",
+        formData,
+        {
+          withCredentials: true,
+        }
+      );
+
+      if (addedEventResponse.data) {
+        alert("uspesno ste dodlai ticket");
+      } else {
+        alert("neuspesno");
+      }
+    } catch (error) {
+      if (
+        error.response.status == 401 &&
+        error.response.data.message == "Not authenticated"
+      ) {
+        alert("You are not logged in!");
+      } else if (
+        error.response.status == 401 &&
+        error.response.data.message == "Unauthorized"
+      ) {
+        alert("You don't have privilege to create events!");
+      }
+    }
+  };
+
   return (
     <div style={{ overflow: "hidden" }}>
       <Navbar />
@@ -95,6 +139,9 @@ function AddEvent() {
             </button>
           </div>
         </form>
+      </div>
+      <div className="charts">
+        <Charts />
       </div>
     </div>
   );
