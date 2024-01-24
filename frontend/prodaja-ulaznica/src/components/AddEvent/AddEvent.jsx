@@ -6,6 +6,18 @@ import { useCookies } from "react-cookie";
 import Charts from "./Charts/Charts";
 
 function AddEvent() {
+  const [cookie, setCookie] = useCookies(["login"]);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [formErrors, setFormErrors] = useState({});
+  const btnDodaj = useRef(null);
+  const [formValues, setFormValues] = useState({
+    naziv: "",
+    adminId: 3,
+    tipDogadjaja: "",
+    cena: 0,
+    putanjaSlike: null,
+  });
+
   return (
     <div style={{ overflow: "hidden" }}>
       <Navbar />
